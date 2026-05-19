@@ -14,8 +14,9 @@ Este projeto inicial foi criado para gerenciar alunos e suas respectivas trilhas
 3. O e-mail do aluno obrigatoriamente precisa conter o símbolo '@'.
 4. Não é permitido adicionar o mesmo curso duas vezes na mesma trilha.
 
-## ✅ Checklist de Entregáveis (Hoje)
-- [x] Criar estrutura do projeto Kotlin no Console
-- [x] Extrair Entidades e Regras do Briefing (Este documento)
-- [x] Criar classes Student, Course e Trail com validações
-- [x] Criar repositório Git e fazer o primeiro commit
+✅ Checklist de Entregáveis
+- [x] Criar estrutura do projeto Kotlin no Console (Segunda)
+- [x] Extrair Entidades e Regras do Briefing (Segunda)
+- [x] Criar classes Student, Course e Trail com validações (Terça)
+- [x] Implementar cadastro e listagem básica no Console (Terça)
+- [x] Criar enums de situação, nível e categoria (Terça)
