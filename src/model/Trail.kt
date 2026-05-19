@@ -1,10 +1,8 @@
-package model
-
 class Trail(
-    val id: Int,
-    val name: String
+    var id: Int,
+    var name: String
 ) {
-    val courses = mutableListOf<Course>()
+    var courses = ArrayList<Course>()
 
     fun addCourse(course: Course) {
         courses.add(course)
