@@ -3,80 +3,163 @@ import java.util.Scanner
 
 fun main(args: Array<String>) {
     val scanner = Scanner(System.`in`)
-    val listaAlunos = ArrayList<Student>()
-    val listaCursos = ArrayList<Course>()
+    val servico = AcademicService()
+    servico.cadastrarCurso(Course(1, "Kotlin Basico", 20, CourseLevel.BASIC, CourseCategory.PROGRAMMING))
+    servico.cadastrarCurso(Course(2, "Android com Compose", 40, CourseLevel.ADVANCED, CourseCategory.MOBILE))
+    servico.cadastrarTrilha(Trail(10, "Trilha de Mobile"))
 
     var opcao = -1
 
     while (opcao != 0) {
-        println("\n--- MENU SEMANA 02 ---")
+        println("\\n--- MENU ---")
         println("1 - Cadastrar Aluno")
         println("2 - Listar Alunos")
         println("3 - Cadastrar Curso")
         println("4 - Listar Cursos")
+        println("5 - Criar Trilha")
+        println("6 - Adicionar Curso a uma Trilha")
+        println("7 - Mostrar Relatorio da Trilha")
         println("0 - Sair")
-        print("Escolha uma opção: ")
+        print("Escolha uma opcao: ")
 
         opcao = scanner.nextInt()
         scanner.nextLine()
 
         when (opcao) {
             1 -> {
-                try {
-                    print("Digite o ID do Aluno (Número): ")
-                    val id = scanner.nextInt()
-                    scanner.nextLine()
-                    print("Digite o Nome do Aluno: ")
-                    val name = scanner.nextLine()
-                    print("Digite o E-mail do Aluno: ")
-                    val email = scanner.nextLine()
-                    val novoAluno = Student(id, name, email)
-                    listaAlunos.add(novoAluno)
-                    println("✓ Aluno cadastrado com sucesso!")
+                print("ID do Aluno (Numero maior que zero): ")
+                val id = scanner.nextInt()
+                scanner.nextLine()
+                print("Nome do Aluno: ")
+                val nome = scanner.nextLine()
+                print("E-mail do Aluno (Precisa conter @): ")
+                val email = scanner.nextLine()
+                if (id <= 0) {
+                    println("❌ Erro: O ID deve ser maior que zero.")
+                } else if (nome.isBlank()) {
+                    println("❌ Erro: O nome nao pode estar em branco.")
+                } else if (!email.contains("@")) {
+                    println("❌ Erro: O e-mail precisa conter '@'.")
+                } else {
+                    val novoAluno = Student(id, nome, email)
+                    val deuCerto = servico.cadastrarAluno(novoAluno)
 
-                } catch (e: IllegalArgumentException) {
-                    println("❌ Erro de Validação: ${e.message}")
+                    if (deuCerto) {
+                        println("✓ Aluno cadastrado com sucesso!")
+                    } else {
+                        println("❌ Erro: Ja existe um aluno com este ID.")
+                    }
                 }
             }
             2 -> {
                 println("\n--- LISTA DE ALUNOS ---")
-                if (listaAlunos.isEmpty()) {
+                if (servico.listaAlunos.isEmpty()) {
                     println("Nenhum aluno cadastrado.")
                 } else {
-                    for (aluno in listaAlunos) {
-                        println("ID: ${aluno.id} | Nome: ${aluno.name} | E-mail: ${aluno.email} | Status: ${aluno.situation.label}")
+                    for (aluno in servico.listaAlunos) {
+                        println("ID: ${aluno.id} | Nome: ${aluno.name} | E-mail: ${aluno.email}")
                     }
                 }
             }
             3 -> {
-                try {
-                    print("Digite o ID do Curso (Número): ")
-                    val id = scanner.nextInt()
-                    scanner.nextLine()
-                    print("Digite o Título do Curso: ")
-                    val title = scanner.nextLine()
-                    print("Digite a Carga Horária: ")
-                    val horas = scanner.nextInt()
-                    val novoCurso = Course(id, title, horas, CourseLevel.BASIC, CourseCategory.PROGRAMMING)
-                    listaCursos.add(novoCurso)
-                    println("✓ Curso cadastrado com sucesso!")
+                print("ID do Curso (Numero maior que zero): ")
+                val id = scanner.nextInt()
+                scanner.nextLine()
+                print("Titulo do Curso: ")
+                val titulo = scanner.nextLine()
+                print("Carga Horaria (Maior que zero): ")
+                val horas = scanner.nextInt()
 
-                } catch (e: IllegalArgumentException) {
-                    println("❌ Erro de Validação: ${e.message}")
+                if (id <= 0) {
+                    println("❌ Erro: O ID deve ser maior que zero.")
+                } else if (titulo.isBlank()) {
+                    println("❌ Erro: O titulo nao pode estar em branco.")
+                } else if (horas <= 0) {
+                    println("❌ Erro: A carga horaria deve ser maior que zero.")
+                } else {
+                    val novoCurso = Course(id, titulo, horas, CourseLevel.BASIC, CourseCategory.PROGRAMMING)
+                    val deuCerto = servico.cadastrarCurso(novoCurso)
+
+                    if (deuCerto) {
+                        println("✓ Curso cadastrado com sucesso!")
+                    } else {
+                        println("❌ Erro: Ja existe um curso com este ID.")
+                    }
                 }
             }
             4 -> {
                 println("\n--- LISTA DE CURSOS ---")
-                if (listaCursos.isEmpty()) {
+                if (servico.listaCursos.isEmpty()) {
                     println("Nenhum curso cadastrado.")
                 } else {
-                    for (curso in listaCursos) {
-                        println("ID: ${curso.id} | Título: ${curso.title} | Horas: ${curso.workloadHours}h")
+                    for (curso in servico.listaCursos) {
+                        println("ID: ${curso.id} | Titulo: ${curso.title} | Horas: ${curso.workloadHours}h")
+                    }
+                }
+            }
+            5 -> {
+                print("ID da Trilha (Numero maior que zero): ")
+                val id = scanner.nextInt()
+                scanner.nextLine()
+                print("Nome da Trilha: ")
+                val nome = scanner.nextLine()
+
+                if (id <= 0) {
+                    println("❌ Erro: O ID deve ser maior que zero.")
+                } else if (nome.isBlank()) {
+                    println("❌ Erro: O nome nao pode estar em branco.")
+                } else {
+                    val novaTrilha = Trail(id, nome)
+                    val deuCerto = servico.cadastrarTrilha(novaTrilha)
+
+                    if (deuCerto) {
+                        println("✓ Trilha criada com sucesso!")
+                    } else {
+                        println("❌ Erro: Ja existe uma trilha com este ID.")
+                    }
+                }
+            }
+            6 -> {
+                print("Digite o ID da Trilha: ")
+                val idTrilha = scanner.nextInt()
+                print("Digite o ID do Curso: ")
+                val idCurso = scanner.nextInt()
+
+                val trilhaEncontrada = servico.buscarTrilhaPorId(idTrilha)
+                val cursoEncontrado = servico.buscarCursoPorId(idCurso)
+                if (trilhaEncontrada == null) {
+                    println("❌ Erro: A Trilha com ID $idTrilha nao existe!")
+                } else if (cursoEncontrado == null) {
+                    println("❌ Erro: O Curso com ID $idCurso nao existe!")
+                } else {
+                    val adicionou = trilhaEncontrada.addCourse(cursoEncontrado)
+                    if (adicionou) {
+                        println("✓ Curso '${cursoEncontrado.title}' colocado na trilha '${trilhaEncontrada.name}'!")
+                    } else {
+                        println("❌ Erro: Este curso ja foi adicionado nesta trilha antes (Duplicidade barrada)!")
+                    }
+                }
+            }
+            7 -> {
+                print("Digite o ID da Trilha para ver o relatorio: ")
+                val idTrilha = scanner.nextInt()
+                val trilhaEncontrada = servico.buscarTrilhaPorId(idTrilha)
+
+                if (trilhaEncontrada == null) {
+                    println("❌ Erro: Trilha nao encontrada.")
+                } else {
+                    println("\n--- RELATORIO DA TRILHA: ${trilhaEncontrada.name} ---")
+                    if (trilhaEncontrada.courses.isEmpty()) {
+                        println("Esta trilha ainda nao tem cursos.")
+                    } else {
+                        for (curso in trilhaEncontrada.courses) {
+                            println("  • ID: ${curso.id} | ${curso.title} (${curso.workloadHours}h)")
+                        }
                     }
                 }
             }
             0 -> println("Saindo do sistema...")
-            else -> println("Opção inválida!")
+            else -> println("Opcao invalida!")
         }
     }
 }
