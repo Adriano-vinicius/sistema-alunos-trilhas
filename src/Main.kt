@@ -4,9 +4,9 @@ import java.util.Scanner
 fun main(args: Array<String>) {
     val scanner = Scanner(System.`in`)
     val servico = AcademicService()
-    servico.cadastrarCurso(Course(1, "Kotlin Basico", 20, CourseLevel.BASIC, CourseCategory.PROGRAMMING))
-    servico.cadastrarCurso(Course(2, "Android com Compose", 40, CourseLevel.ADVANCED, CourseCategory.MOBILE))
-    servico.cadastrarTrilha(Trail(10, "Trilha de Mobile"))
+    servico.cadastrarCurso(Course(1, "Kotlin Basico", 20, nivel.BASICO, CATEGORIA.PROGRAMACAO))
+    servico.cadastrarCurso(Course(2, "Android com Compose", 40, nivel.AVANCADO, CATEGORIA.MOBILE))
+    servico.cadastrarTrilha(Trilha(10, "Trilha de Mobile"))
 
     var opcao = -1
 
@@ -41,7 +41,7 @@ fun main(args: Array<String>) {
                 } else if (!email.contains("@")) {
                     println("❌ Erro: O e-mail precisa conter '@'.")
                 } else {
-                    val novoAluno = Student(id, nome, email)
+                    val novoAluno = Estudantes(id, nome, email)
                     val deuCerto = servico.cadastrarAluno(novoAluno)
 
                     if (deuCerto) {
@@ -77,7 +77,7 @@ fun main(args: Array<String>) {
                 } else if (horas <= 0) {
                     println("❌ Erro: A carga horaria deve ser maior que zero.")
                 } else {
-                    val novoCurso = Course(id, titulo, horas, CourseLevel.BASIC, CourseCategory.PROGRAMMING)
+                    val novoCurso = Course(id, titulo, horas, nivel.BASICO, CATEGORIA.PROGRAMACAO)
                     val deuCerto = servico.cadastrarCurso(novoCurso)
 
                     if (deuCerto) {
@@ -93,7 +93,7 @@ fun main(args: Array<String>) {
                     println("Nenhum curso cadastrado.")
                 } else {
                     for (curso in servico.listaCursos) {
-                        println("ID: ${curso.id} | Titulo: ${curso.title} | Horas: ${curso.workloadHours}h")
+                        println("ID: ${curso.id} | Titulo: ${curso.title} | Horas: ${curso.horas}h")
                     }
                 }
             }
@@ -109,7 +109,7 @@ fun main(args: Array<String>) {
                 } else if (nome.isBlank()) {
                     println("❌ Erro: O nome nao pode estar em branco.")
                 } else {
-                    val novaTrilha = Trail(id, nome)
+                    val novaTrilha = Trilha(id, nome)
                     val deuCerto = servico.cadastrarTrilha(novaTrilha)
 
                     if (deuCerto) {
@@ -132,7 +132,7 @@ fun main(args: Array<String>) {
                 } else if (cursoEncontrado == null) {
                     println("❌ Erro: O Curso com ID $idCurso nao existe!")
                 } else {
-                    val adicionou = trilhaEncontrada.addCourse(cursoEncontrado)
+                    val adicionou = trilhaEncontrada.addCursos(cursoEncontrado)
                     if (adicionou) {
                         println("✓ Curso '${cursoEncontrado.title}' colocado na trilha '${trilhaEncontrada.name}'!")
                     } else {
@@ -149,11 +149,11 @@ fun main(args: Array<String>) {
                     println("❌ Erro: Trilha nao encontrada.")
                 } else {
                     println("\n--- RELATORIO DA TRILHA: ${trilhaEncontrada.name} ---")
-                    if (trilhaEncontrada.courses.isEmpty()) {
+                    if (trilhaEncontrada.cursos.isEmpty()) {
                         println("Esta trilha ainda nao tem cursos.")
                     } else {
-                        for (curso in trilhaEncontrada.courses) {
-                            println("  • ID: ${curso.id} | ${curso.title} (${curso.workloadHours}h)")
+                        for (curso in trilhaEncontrada.cursos) {
+                            println("  • ID: ${curso.id} | ${curso.title} (${curso.horas}h)")
                         }
                     }
                 }

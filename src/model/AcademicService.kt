@@ -1,10 +1,10 @@
 package model
 
 class AcademicService {
-    val listaAlunos = ArrayList<Student>()
+    val listaAlunos = ArrayList<Estudantes>()
     val listaCursos = ArrayList<Course>()
-    val listaTrilhas = ArrayList<Trail>()
-    fun cadastrarAluno(aluno: Student): Boolean {
+    val listaTrilhas = ArrayList<Trilha>()
+    fun cadastrarAluno(aluno: Estudantes): Boolean {
         for (a in listaAlunos) {
             if (a.id == aluno.id) {
                 return false
@@ -13,7 +13,7 @@ class AcademicService {
         listaAlunos.add(aluno)
         return true
     }
-    fun buscarAlunoPorId(idBuscado: Int): Student? {
+    fun buscarAlunoPorId(idBuscado: Int): Estudantes? {
         for (aluno in listaAlunos) {
             if (aluno.id == idBuscado) {
                 return aluno
@@ -38,7 +38,7 @@ class AcademicService {
         }
         return null
     }
-    fun cadastrarTrilha(trilha: Trail): Boolean {
+    fun cadastrarTrilha(trilha: Trilha): Boolean {
         for (t in listaTrilhas) {
             if (t.id == trilha.id) {
                 return false
@@ -47,7 +47,7 @@ class AcademicService {
         listaTrilhas.add(trilha)
         return true
     }
-    fun buscarTrilhaPorId(idBuscado: Int): Trail? {
+    fun buscarTrilhaPorId(idBuscado: Int): Trilha? {
         for (trilha in listaTrilhas) {
             if (trilha.id == idBuscado) {
                 return trilha

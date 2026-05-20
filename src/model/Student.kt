@@ -1,16 +1,16 @@
 package model
-enum class StudentSituation(val label: String) {
-    ACTIVE("Ativo"),
-    INACTIVE("Inativo")
+enum class Situacao(val label: String) {
+    Ativo("Ativo"),
+    Inativo("Inativo")
 }
 
-class Student(
+class Estudantes(
     var id: Int,
     var name: String,
     var email: String,
-    var situation: StudentSituation = StudentSituation.ACTIVE
+    var situation: Situacao = Situacao.Ativo
 ) {
-    var trail: Trail? = null
+    var trail: Trilha? = null
 
     init {
         require(id > 0) { "O ID do aluno deve ser maior que zero." }
