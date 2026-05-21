@@ -1,4 +1,8 @@
-package model
+package service
+
+import model.Course
+import model.Estudantes
+import model.Trilha
 
 class AcademicService {
     val listaAlunos = ArrayList<Estudantes>()

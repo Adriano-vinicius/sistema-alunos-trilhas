@@ -1,4 +1,7 @@
+package app
+
 import model.*
+import service.AcademicService
 import java.util.Scanner
 
 fun main(args: Array<String>) {
