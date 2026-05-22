@@ -1,6 +1,6 @@
 # Sistema de Alunos e Trilhas
 
-Projeto em Kotlin para console desenvolvido na Semana 02 do treinamento de Desenvolvimento de Aplicativos Móveis.
+Projeto em Kotlin para console desenvolvido na Semana 02 do treinamento.
 
 O sistema permite cadastrar alunos, cursos e trilhas, associar cursos às trilhas, matricular alunos, registrar progresso e exibir relatórios.
 
@@ -17,20 +17,6 @@ Aplicar Programação Orientada a Objetos em Kotlin usando:
 - Listas de objetos.
 - Encapsulamento.
 - Separação entre domínio, serviço e console.
-
----
-
-## Como executar
-
-1. Abrir o projeto no IntelliJ IDEA ou Android Studio.
-2. Conferir se o JDK está configurado.
-3. Executar o arquivo:
-
-```text
-src/main/kotlin/app/Main.kt
-```
-
-4. Usar o menu exibido no console.
 
 ---
 
